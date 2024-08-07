@@ -20,24 +20,17 @@ func UpdateMetrics(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// resp := "aboba\n"
-
 	mType, err := getMetricType(r.URL.Path)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest) //http.StatusNotFound)
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// resp += fmt.Sprintln(mType)
-
 	mName, err := getMetricName(r.URL.Path)
-	// _, err = getMetricName(r.URL.Path)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusNotFound)
 		return
 	}
-
-	// resp += fmt.Sprintln(mName)
 
 	value, err := validateValue(mType, r.URL.Path)
 	if err != nil {
@@ -51,7 +44,7 @@ func UpdateMetrics(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "text/plain")
 	w.WriteHeader(http.StatusOK)
-	// w.Write([]byte(resp))
+	w.Write([]byte("success"))
 }
 
 func getMetricType(p string) (string, error) {
