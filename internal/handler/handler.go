@@ -24,7 +24,7 @@ func UpdateMetrics(w http.ResponseWriter, r *http.Request) {
 
 	mType, err := getMetricType(r.URL.Path)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusNotFound)
+		http.Error(w, err.Error(), http.StatusBadRequest) //http.StatusNotFound)
 		return
 	}
 
@@ -66,7 +66,7 @@ func getMetricType(p string) (string, error) {
 	if mType == "counter" || mType == "gauge" {
 		return mType, nil
 	} else {
-		return "", errors.New("invalid path")
+		return "", errors.New("invalid metric type")
 	}
 }
 
